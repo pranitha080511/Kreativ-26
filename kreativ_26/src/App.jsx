@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 
+
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -12,6 +13,10 @@ export default function App() {
   const subtitleRef = useRef(null)
   const btnRef = useRef(null)
   const eventsRef = useRef(null)
+  const guidelinesRef = useRef(null)
+  const prizesRef = useRef(null)
+  const coordinatorRef = useRef(null)
+
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -24,13 +29,47 @@ export default function App() {
         duration: 1.2,
         delay: 0.2,
       })
-
+      
       gsap.from(collegeRef.current, {
         y: -30,
         opacity: 0,
         duration: 1,
         delay: 0.4,
       })
+      gsap.utils.toArray(".coordinator-card").forEach((card) => {
+  const img = card.querySelector(".coordinator-img")
+
+  card.addEventListener("mouseenter", () => {
+    gsap.to(card, {
+      y: -15,
+      boxShadow: "0 0 40px rgba(139,92,246,0.8)",
+      duration: 0.4,
+      ease: "power3.out",
+    })
+
+    gsap.to(img, {
+      scale: 1.1,
+      duration: 0.4,
+      ease: "power3.out",
+    })
+  })
+
+  card.addEventListener("mouseleave", () => {
+    gsap.to(card, {
+      y: 0,
+      boxShadow: "0 0 0 rgba(0,0,0,0)",
+      duration: 0.4,
+      ease: "power3.out",
+    })
+
+    gsap.to(img, {
+      scale: 1,
+      duration: 0.4,
+      ease: "power3.out",
+    })
+  })
+})
+
 
       gsap.from(titleRef.current, {
         y: 100,
@@ -52,6 +91,25 @@ export default function App() {
   duration: 0.8,
   delay: 1.2,
 })
+gsap.utils.toArray(".hover-lift").forEach((card) => {
+  card.addEventListener("mouseenter", () => {
+    gsap.to(card, {
+      y: -12,
+      duration: 0.35,
+      ease: "power3.out",
+    })
+  })
+
+  card.addEventListener("mouseleave", () => {
+    gsap.to(card, {
+      y: 0,
+      duration: 0.35,
+      ease: "power3.out",
+    })
+  })
+})
+
+
 
     }, containerRef)
 
@@ -70,6 +128,15 @@ export default function App() {
       ease: "power3.out",
     })
   }
+  const scrollToGuidelines = () => {
+    setMenuOpen(false)
+    guidelinesRef.current.scrollIntoView({ behavior: "smooth" })
+  }
+  const scrollToPrizes = () => {
+  setMenuOpen(false)
+  prizesRef.current.scrollIntoView({ behavior: "smooth" })
+}
+
 
   return (
     <div ref={containerRef} className="w-full overflow-x-hidden">
@@ -82,7 +149,8 @@ export default function App() {
           <ul className="hidden md:flex gap-8 text-white">
             <li className="cursor-pointer hover:text-violet-400" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>Home</li>
             <li className="cursor-pointer hover:text-violet-400" onClick={scrollToEvents}>Events</li>
-            <li className="cursor-pointer hover:text-violet-400">Prizes</li>
+            <li className="cursor-pointer hover:text-violet-400" onClick={scrollToGuidelines}>Guidelines</li>
+            <li className="cursor-pointer hover:text-violet-400" onClick={scrollToPrizes}>Prizes</li>
             <li className="cursor-pointer hover:text-violet-400">Coordinator</li>
           </ul>
 
@@ -95,7 +163,8 @@ export default function App() {
           <ul className="mt-6 flex flex-col items-center gap-6 text-white md:hidden">
             <li onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>Home</li>
             <li onClick={scrollToEvents}>Events</li>
-            <li>Prizes</li>
+            <li onClick={scrollToGuidelines}>Guidelines</li>
+            <li onClick={scrollToPrizes} >Prizes</li>
             <li>Coordinator</li>
           </ul>
         )}
@@ -126,45 +195,66 @@ export default function App() {
             Innovate • Collaborate • Elevate
           </p>
 
-          <div
+<div
   ref={btnRef}
-  className="mt-10 flex flex-wrap gap-6 justify-center"
+  className="mt-10 flex flex-col items-center gap-6"
 >
-  {/* View Events */}
-  <button
-    onClick={scrollToEvents}
-    className="
-      px-10 py-3
-      border border-violet-400 text-violet-300
-      rounded-full
-      hover:bg-violet-400 hover:text-black
-      transition
-    "
-  >
-    View Events
-  </button>
+  {/* Top buttons */}
+  <div className="flex flex-wrap gap-6 justify-center">
+    {/* View Events */}
+    <button
+      onClick={scrollToEvents}
+      className="
+        px-10 py-3
+        border border-violet-400 text-violet-300
+        rounded-full
+        hover:bg-violet-400 hover:text-black
+        transition
+      "
+    >
+      View Events
+    </button>
 
-  {/* Register Now */}
+    {/* Register Now */}
+    <a
+      href="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="
+        px-10 py-3
+        rounded-full
+        bg-gradient-to-r from-violet-600 to-pink-600
+        text-white font-semibold
+        hover:scale-105
+        transition
+        shadow-lg shadow-violet-500/30
+      "
+    >
+      Register Now
+    </a>
+  </div>
+
+  {/* Download Rules Book (CENTERED BELOW) */}
   <a
-    href="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform"
-    target="_blank"
-    rel="noopener noreferrer"
+    href="/rules-book.pdf"
+    download
     className="
-      px-10 py-3
+      px-8 py-3
       rounded-full
-      bg-gradient-to-r from-violet-600 to-pink-600
-      text-white font-semibold
-      hover:scale-105
+      border border-white/30
+      text-white
+      hover:bg-white hover:text-black
       transition
-      shadow-lg shadow-violet-500/30
+      backdrop-blur-md
     "
   >
-    Register Now
+    Download Rules Book
   </a>
 </div>
 
-        </div>
-      </section>
+
+</div>
+</section>
 
             {/* EVENTS SECTION */}
 <section ref={eventsRef} className="relative min-h-screen py-24 px-6">
@@ -276,7 +366,332 @@ export default function App() {
     </div>
   </div>
 </section>
+{/* GUIDELINES SECTION */}
+<section ref={guidelinesRef} className="relative min-h-screen py-24 px-6">
 
+  {/* Background video */}
+  <video
+    className="absolute inset-0 w-full h-full object-cover"
+    src="/bg-video.mp4"
+    autoPlay
+    loop
+    muted
+    playsInline
+  />
+  <div className="absolute inset-0 bg-black/85" />
+
+  <div className="relative z-10 max-w-7xl mx-auto">
+
+    <h2 className="text-4xl font-bold text-center mb-20 bg-gradient-to-r from-violet-400 to-pink-500 bg-clip-text text-transparent">
+      Guidelines
+    </h2>
+
+    {/* ================= DESKTOP TIMELINE ONLY ================= */}
+    <div className="hidden md:block relative mb-24">
+
+      {/* Gradient Line */}
+      <div className="absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500 rounded-full" />
+
+      {/* Timeline Items */}
+      <div className="grid grid-cols-6 gap-6 text-center relative">
+
+        {[
+          ["9:30 – 10:00", "Orientation"],
+          ["10:00 – 10:30", "Refreshments"],
+          ["10:30 – 1:00", "Hackathon (Project Evaluation)"],
+          ["1:00 – 2:00", "Lunch Break"],
+          ["2:00 – 3:00", "Non-Tech Events"],
+          ["3:00 – 4:30", "Prize Distribution"],
+        ].map(([time, activity], index) => (
+          <div key={index} className="flex flex-col items-center">
+
+            {/* Time */}
+            <div className="mb-6 font-semibold text-violet-300">
+              {time}
+            </div>
+
+            {/* Dot */}
+            <div
+              className="
+                relative z-10
+                w-5 h-5
+                rounded-full
+                bg-white
+                border-4 border-violet-500
+                shadow-lg shadow-violet-500/50
+                transition-transform duration-300
+                hover:scale-125
+              "
+            />
+
+            {/* Activity */}
+            <div className="mt-6 text-white font-medium max-w-[140px]">
+              {activity}
+            </div>
+
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* ================= MOBILE TIMELINE ONLY ================= */}
+    <div className="block md:hidden space-y-6 mb-24">
+
+      {[
+        ["9:30 – 10:00", "Orientation"],
+        ["10:00 – 10:30", "Refreshments"],
+        ["10:30 – 1:00", "Hackathon (Project Evaluation)"],
+        ["1:00 – 2:00", "Lunch Break"],
+        ["2:00 – 3:00", "Non-Tech Events"],
+        ["3:00 – 4:30", "Prize Distribution"],
+      ].map(([time, activity], index) => (
+        <div
+          key={index}
+          className="group relative overflow-hidden p-5 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md"
+        >
+          {/* Gradient hover */}
+          <div className="absolute inset-0 bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition" />
+
+          <div className="relative z-10">
+            <div className="text-violet-300 font-semibold mb-1">
+              {time}
+            </div>
+            <div className="text-white font-medium">
+              {activity}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* ================= GUIDELINES DETAILS ================= */}
+    <div className="relative mt-28">
+
+      {/* Center Gradient Line (Desktop only) */}
+      <div className="absolute left-1/2 top-0 h-full w-1 bg-gradient-to-b from-violet-500 via-purple-500 to-pink-500 -translate-x-1/2 hidden md:block" />
+
+      <div className="grid md:grid-cols-2 gap-16">
+
+        {/* AI HACKATHON */}
+        <div className="text-white md:pr-12">
+          <h3 className="text-2xl font-bold mb-6 text-violet-300">
+            AI Hackathon – Guidelines
+          </h3>
+
+          <ul className="space-y-4 list-decimal list-inside text-gray-200">
+            <li>Confirm your registration by paying the fees.</li>
+            <li>Select your domain from the problem statements provided.</li>
+            <li>Download the PPT template provided for presentation.</li>
+            <li>During registration, submit your prepared PPT.</li>
+            <li>Attend the hackathon on the time mentioned in the brochure.</li>
+          </ul>
+        </div>
+
+        {/* NON-TECH */}
+        <div className="text-white md:pl-12">
+          <h3 className="text-2xl font-bold mb-6 text-violet-300">
+            Non-Technical Event – Guidelines
+          </h3>
+
+          <ul className="space-y-4 list-decimal list-inside text-gray-200">
+            <li>Hackathon participants are eligible for non-tech events.</li>
+            <li>Three levels with shortlisting at each stage.</li>
+            <li><strong>Level 1:</strong> Picture connections.</li>
+            <li><strong>Level 2:</strong> Clue-based word identification.</li>
+            <li><strong>Level 3:</strong> Find the incorrect logo.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+{/* PRIZES SECTION */}
+<section ref={prizesRef} className="relative min-h-screen py-32 px-6">
+
+  {/* Background */}
+  <video
+    className="absolute inset-0 w-full h-full object-cover"
+    src="/bg-video.mp4"
+    autoPlay
+    loop
+    muted
+  />
+  <div className="absolute inset-0 bg-black/90" />
+
+  <div className="relative z-10 max-w-7xl mx-auto">
+
+    <h2 className="text-4xl font-bold text-center mb-20 bg-gradient-to-r from-violet-400 to-pink-500 bg-clip-text text-transparent">
+      Prizes
+    </h2>
+
+    {/* ================= CERTIFICATES ================= */}
+    <div className="grid md:grid-cols-2 gap-12 mb-36">
+
+      {/* Participation Certificate */}
+      <div className="hover-lift group relative overflow-hidden rounded-2xl border border-white/20 p-10 bg-black/70 backdrop-blur-md text-center">
+        <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-pink-600 opacity-0 group-hover:opacity-100 transition duration-300" />
+        <div className="relative z-10 text-white">
+          <h3 className="text-2xl font-bold mb-4">Participation Certificate</h3>
+          <p className="text-gray-200">
+            All participants of AI Hackathon and Non-Technical Event will receive participation certificates.
+          </p>
+        </div>
+      </div>
+
+      {/* Winner Certificate */}
+      <div className="hover-lift group relative overflow-hidden rounded-2xl border border-white/20 p-10 bg-black/70 backdrop-blur-md text-center">
+        <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-pink-600 opacity-0 group-hover:opacity-100 transition duration-300" />
+        <div className="relative z-10 text-white">
+          <h3 className="text-2xl font-bold mb-4">Winner Certificate</h3>
+          <p className="text-gray-200">
+            Winners of both events will receive merit certificates along with cash prizes.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    {/* ================= AI HACKATHON ================= */}
+    <h3 className="text-3xl font-extrabold text-center mb-16 text-yellow-300">
+      Hack Ragnarok
+    </h3>
+
+    <div className="grid md:grid-cols-3 gap-16 items-end mb-40">
+
+      {/* SILVER */}
+      <div className="hover-lift flex flex-col items-center">
+        <div className="podium-float relative z-10 w-64 h-64 rounded-3xl bg-black/90 border border-blue-500 text-center flex flex-col justify-center items-center shadow-[0_0_30px_rgba(59,130,246,0.6)]">
+          <div className="mb-4 text-4xl transition-transform duration-300 hover:scale-125 hover:-rotate-6">🥈</div>
+          <p className="text-gray-300 text-sm tracking-widest mb-2">RUNNER UP</p>
+          <h3 className="text-white text-3xl font-extrabold">₹2000</h3>
+        </div>
+        <div className="w-72 h-24 mt-[-10px] rounded-b-3xl bg-gradient-to-b from-blue-500/40 to-black" />
+      </div>
+
+      {/* GOLD */}
+      <div className="hover-lift flex flex-col items-center">
+        <div className="podium-float champion-glow relative z-10 w-72 h-72 rounded-3xl bg-black/95 border border-yellow-400 text-center flex flex-col justify-center items-center shadow-[0_0_50px_rgba(255,215,0,0.8)]">
+          <div className="mb-5 text-5xl transition-transform duration-300 hover:scale-125 hover:rotate-6">🥇</div>
+          <p className="text-gray-300 text-sm tracking-widest mb-2">CHAMPION</p>
+          <h3 className="text-yellow-300 text-5xl font-extrabold">₹3000</h3>
+        </div>
+        <div className="w-80 h-28 mt-[-10px] rounded-b-3xl bg-gradient-to-b from-yellow-400/40 to-black" />
+      </div>
+
+      {/* BRONZE */}
+      <div className="hover-lift flex flex-col items-center">
+        <div className="podium-float relative z-10 w-64 h-64 rounded-3xl bg-black/90 border border-red-500 text-center flex flex-col justify-center items-center shadow-[0_0_30px_rgba(239,68,68,0.6)]">
+          <div className="mb-4 text-4xl transition-transform duration-300 hover:scale-125 hover:rotate-6">🥉</div>
+          <p className="text-gray-300 text-sm tracking-widest mb-2">2ND RUNNER UP</p>
+          <h3 className="text-white text-3xl font-extrabold">₹1000</h3>
+        </div>
+        <div className="w-72 h-24 mt-[-10px] rounded-b-3xl bg-gradient-to-b from-red-500/40 to-black" />
+      </div>
+
+    </div>
+
+    {/* ================= THINK & TWIST ================= */}
+    <h3 className="text-3xl font-extrabold text-center mb-16 text-violet-300">
+      Think & Twist 
+    </h3>
+
+    <div className="grid md:grid-cols-2 gap-16">
+
+      <div className="hover-lift relative rounded-3xl p-10 bg-black/80 border border-violet-500/40 text-center text-white shadow-[0_0_30px_rgba(139,92,246,0.6)]">
+        <h4 className="text-xl font-bold text-violet-300 mb-2">WINNER</h4>
+        <p className="text-4xl font-extrabold">₹1000</p>
+      </div>
+
+      <div className="hover-lift relative rounded-3xl p-10 bg-black/80 border border-gray-400/40 text-center text-white shadow-[0_0_30px_rgba(156,163,175,0.6)]">
+        <h4 className="text-xl font-bold text-gray-300 mb-2">RUNNER UP</h4>
+        <p className="text-4xl font-extrabold">₹500</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+{/* COORDINATOR SECTION */}
+<section
+  ref={coordinatorRef}
+  className="relative min-h-screen py-28 px-6"
+>
+  {/* Background */}
+  <video
+    className="absolute inset-0 w-full h-full object-cover"
+    src="/bg-video.mp4"
+    autoPlay
+    loop
+    muted
+    playsInline
+  />
+  <div className="absolute inset-0 bg-black/90" />
+
+  <div className="relative z-10 max-w-7xl mx-auto">
+
+    {/* Title */}
+    <h2 className="text-4xl font-bold text-center mb-20 bg-gradient-to-r from-violet-400 to-pink-500 bg-clip-text text-transparent">
+      Coordinators
+    </h2>
+
+    {/* STUDENT COORDINATORS (TEXT ONLY) */}
+    <div className="text-center mb-28">
+      <h3 className="text-3xl font-bold mb-6 text-violet-300">
+        Student Coordinators
+      </h3>
+
+      <p className="text-lg text-gray-200">
+        <span className="font-semibold text-white">Viswanth</span> – 8668008781
+      </p>
+      <p className="text-lg text-gray-200 mt-2">
+        <span className="font-semibold text-white">Sonia</span> – 9500239751
+      </p>
+    </div>
+
+    {/* STAFF / HOD / PRINCIPAL */}
+    <div className="grid md:grid-cols-3 gap-14">
+
+      {/* STAFF COORDINATOR */}
+      <div className="coordinator-card relative rounded-3xl p-8 bg-black/80 border border-white/20 text-center backdrop-blur-md shadow-[0_0_20px_rgba(139,92,246,0.3)]">
+        <img
+          src="/asir.jpg"
+          alt="Mr. D. Asir"
+          className="coordinator-img w-28 h-28 mx-auto rounded-full border-4 border-violet-400 mb-6 object-cover"
+        />
+        <h4 className="text-xl font-bold text-white">Mr. D. Asir</h4>
+        <p className="text-violet-300 mt-1">AP – CSE</p>
+        <p className="text-gray-400 mt-1">Staff Coordinator</p>
+      </div>
+
+      {/* HOD */}
+      <div className="coordinator-card relative rounded-3xl p-8 bg-black/80 border border-white/20 text-center backdrop-blur-md shadow-[0_0_20px_rgba(139,92,246,0.3)]">
+        <img
+          src="/meenakshi.jpg"
+          alt="Dr. A. Meenakshi"
+          className="coordinator-img w-28 h-28 mx-auto rounded-full border-4 border-violet-400 mb-6 object-cover"
+        />
+        <h4 className="text-xl font-bold text-white">Dr. A. Meenakshi</h4>
+        <p className="text-violet-300 mt-1">Professor & HOD</p>
+        <p className="text-gray-400 mt-1">Convener</p>
+      </div>
+
+      {/* PRINCIPAL */}
+      <div className="coordinator-card relative rounded-3xl p-8 bg-black/80 border border-white/20 text-center backdrop-blur-md shadow-[0_0_20px_rgba(139,92,246,0.3)]">
+        <img
+          src="/mani.jpg"
+          alt="Dr. K. Mani"
+          className="coordinator-img w-28 h-28 mx-auto rounded-full border-4 border-violet-400 mb-6 object-cover"
+        />
+        <h4 className="text-xl font-bold text-white">Dr. S. Senthil</h4>
+        <p className="text-violet-300 mt-1">Principal</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
     </div>
   )
