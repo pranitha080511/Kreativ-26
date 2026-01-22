@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
-
+import Particles from "./Particles"
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -144,12 +144,30 @@ const scrollToCoordinator = () => {
 
 
   return (
-    <div ref={containerRef} className="w-full overflow-x-hidden">
+    <div ref={containerRef} className="w-full overflow-x-hidden relative">
+
+      {/* FULL PAGE BACKGROUND VIDEO */}
+      <div className="fixed inset-0 w-full h-full z-[-1]">
+        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+          <Particles
+          className="absolute inset-0 w-full h-full"
+          particleColors={ ["#A78BFA", "#A855F7", "#EC4899"]}
+          particleCount={1300}
+          particleSpread={20}
+          speed={0.1}
+          particleBaseSize={100}
+          moveParticlesOnHover
+          alphaParticles={false}
+          disableRotation={false}
+          pixelRatio={1}
+          />
+          </div>
+      </div>
 
       {/* NAVBAR */}
       <nav ref={navRef} className="fixed top-0 w-full z-20 bg-black/30 backdrop-blur-md px-6 py-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-white text-xl font-bold">Kreativ’26</h1>
+          <h1 className="text-white text-xl font-bold">Kreativ'26</h1>
 
           <ul className="hidden md:flex gap-8 text-white">
             <li className="cursor-pointer hover:text-violet-400" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>Home</li>
@@ -176,13 +194,10 @@ const scrollToCoordinator = () => {
       </nav>
 
       {/* HERO SECTION */}
-      <section className="relative h-screen flex items-center justify-center text-center">
-        <video className="absolute inset-0 w-full h-full object-cover" src="/bg-video.mp4" autoPlay loop muted />
-        <div className="absolute inset-0 bg-black/80" />
-
+      <section className="relative h-screen flex items-center justify-center text-center pt-16">
         <div className="relative z-10 px-6 -translate-y-10">
           <h1 ref={kreativRef} className="text-5xl md:text-7xl font-extrabold text-white mb-6">
-            Kreativ’26
+            Kreativ'26
           </h1>
 
           <h2 ref={collegeRef} className="text-white uppercase tracking-widest mb-5">
@@ -263,16 +278,6 @@ const scrollToCoordinator = () => {
 
             {/* EVENTS SECTION */}
 <section ref={eventsRef} className="relative min-h-screen py-24 px-6">
-  <video
-    className="absolute inset-0 w-full h-full object-cover"
-    src="/bg-video.mp4"
-    autoPlay
-    loop
-    muted
-    playsInline
-  />
-  <div className="absolute inset-0 bg-black/85" />
-
   <div className="relative z-10 max-w-6xl mx-auto">
     <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-violet-400 to-pink-500 bg-clip-text text-transparent">
       Events
@@ -373,17 +378,6 @@ const scrollToCoordinator = () => {
 </section>
 {/* GUIDELINES SECTION */}
 <section ref={guidelinesRef} className="relative min-h-screen py-24 px-6">
-
-  {/* Background video */}
-  <video
-    className="absolute inset-0 w-full h-full object-cover"
-    src="/bg-video.mp4"
-    autoPlay
-    loop
-    muted
-    playsInline
-  />
-  <div className="absolute inset-0 bg-black/85" />
 
   <div className="relative z-10 max-w-7xl mx-auto">
 
@@ -515,16 +509,6 @@ const scrollToCoordinator = () => {
 {/* PRIZES SECTION */}
 <section ref={prizesRef} className="relative min-h-screen py-32 px-6">
 
-  {/* Background */}
-  <video
-    className="absolute inset-0 w-full h-full object-cover"
-    src="/bg-video.mp4"
-    autoPlay
-    loop
-    muted
-  />
-  <div className="absolute inset-0 bg-black/90" />
-
   <div className="relative z-10 max-w-7xl mx-auto">
 
     <h2 className="text-4xl font-bold text-center mb-20 bg-gradient-to-r from-violet-400 to-pink-500 bg-clip-text text-transparent">
@@ -623,16 +607,6 @@ const scrollToCoordinator = () => {
   ref={coordinatorRef}
   className="relative min-h-screen py-28 px-6"
 >
-  {/* Background */}
-  <video
-    className="absolute inset-0 w-full h-full object-cover"
-    src="/bg-video.mp4"
-    autoPlay
-    loop
-    muted
-    playsInline
-  />
-  <div className="absolute inset-0 bg-black/90" />
 
   <div className="relative z-10 max-w-7xl mx-auto">
 
@@ -718,20 +692,6 @@ const scrollToCoordinator = () => {
 {/* FOOTER */}
 <footer className="relative py-20 px-6 overflow-hidden">
 
-
-  {/* Background Video */}
-  <video
-    className="absolute inset-0 w-full h-full object-cover"
-    src="/bg-video.mp4"
-    autoPlay
-    loop
-    muted
-    playsInline
-  />
-
-  {/* Dark Overlay */}
-  <div className="absolute inset-0 bg-black/90" />
-
   {/* Gradient Top Border */}
   <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 z-10" />
 
@@ -743,7 +703,7 @@ const scrollToCoordinator = () => {
       {/* Symposium Info */}
       <div>
         <h3 className="text-2xl font-extrabold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent mb-4">
-          Kreativ’26
+          Kreativ'26
         </h3>
         <p className="text-gray-400 leading-relaxed">
           National Level Technical Symposium conducted by <br />
@@ -795,7 +755,7 @@ const scrollToCoordinator = () => {
       <p>
         © 2026{" "}
         <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent font-semibold">
-          Kreativ’26
+          Kreativ'26
         </span>{" "}
         • All Rights Reserved
       </p>
@@ -811,10 +771,6 @@ const scrollToCoordinator = () => {
 
   </div>
 </footer>
-
-
-
-
 
     </div>
   )
