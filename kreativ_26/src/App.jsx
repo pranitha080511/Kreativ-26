@@ -277,7 +277,7 @@ const scrollToCoordinator = () => {
 </section>
 
             {/* EVENTS SECTION */}
-<section ref={eventsRef} className="relative min-h-screen py-24 px-6">
+<section ref={eventsRef} className="relative  py-20 px-6">
   <div className="relative z-10 max-w-6xl mx-auto">
     <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-violet-400 to-pink-500 bg-clip-text text-transparent">
       Events
@@ -507,7 +507,7 @@ const scrollToCoordinator = () => {
   </div>
 </section>
 {/* PRIZES SECTION */}
-<section ref={prizesRef} className="relative min-h-screen py-32 px-6">
+<section ref={prizesRef} className="relative  py-20 px-6">
 
   <div className="relative z-10 max-w-7xl mx-auto">
 
@@ -547,7 +547,7 @@ const scrollToCoordinator = () => {
       Hack Ragnarok
     </h3>
 
-    <div className="grid md:grid-cols-3 gap-16 items-end mb-40">
+    <div className="grid md:grid-cols-3 gap-16 items-end mb-16">
 
       {/* SILVER */}
       <div className="hover-lift flex flex-col items-center">
@@ -582,30 +582,49 @@ const scrollToCoordinator = () => {
     </div>
 
     {/* ================= THINK & TWIST ================= */}
-    <h3 className="text-3xl font-extrabold text-center mb-16 text-violet-300">
-      Think & Twist 
-    </h3>
+<h3 className="text-3xl font-extrabold text-center mb-16 text-violet-300">
+  Think & Twist
+</h3>
 
-    <div className="grid md:grid-cols-2 gap-16">
-
-      <div className="hover-lift relative rounded-3xl p-10 bg-black/80 border border-violet-500/40 text-center text-white shadow-[0_0_30px_rgba(139,92,246,0.6)]">
-        <h4 className="text-xl font-bold text-violet-300 mb-2">WINNER</h4>
-        <p className="text-4xl font-extrabold">₹1000</p>
+<div className="grid md:grid-cols-2 gap-16 items-end mb-16">
+  {/* GOLD */}
+  <div className="hover-lift flex flex-col items-center">
+    <div className="podium-float champion-glow relative z-10 w-72 h-72 rounded-3xl bg-black/95 border border-yellow-400 text-center flex flex-col justify-center items-center shadow-[0_0_50px_rgba(255,215,0,0.8)]">
+      <div className="mb-5 text-5xl transition-transform duration-300 hover:scale-125 hover:rotate-6">
+        🥇
       </div>
-
-      <div className="hover-lift relative rounded-3xl p-10 bg-black/80 border border-gray-400/40 text-center text-white shadow-[0_0_30px_rgba(156,163,175,0.6)]">
-        <h4 className="text-xl font-bold text-gray-300 mb-2">RUNNER UP</h4>
-        <p className="text-4xl font-extrabold">₹500</p>
-      </div>
-
+      <p className="text-gray-300 text-sm tracking-widest mb-2">
+        WINNER
+      </p>
+      <h3 className="text-yellow-300 text-5xl font-extrabold">
+        ₹1000
+      </h3>
     </div>
+    <div className="w-80 h-28 mt-[-10px] rounded-b-3xl bg-gradient-to-b from-yellow-400/40 to-black" />
+  </div>
+  {/* SILVER */}
+  <div className="hover-lift flex flex-col items-center">
+    <div className="podium-float relative z-10 w-64 h-64 rounded-3xl bg-black/90 border border-blue-500 text-center flex flex-col justify-center items-center shadow-[0_0_30px_rgba(59,130,246,0.6)]">
+      <div className="mb-4 text-4xl transition-transform duration-300 hover:scale-125 hover:-rotate-6">
+        🥈
+      </div>
+      <p className="text-gray-300 text-sm tracking-widest mb-2">
+        RUNNER UP
+      </p>
+      <h3 className="text-white text-3xl font-extrabold">
+        ₹500
+      </h3>
+    </div>
+    <div className="w-72 h-24 mt-[-10px] rounded-b-3xl bg-gradient-to-b from-blue-500/40 to-black" />
+  </div>
 
+</div>
   </div>
 </section>
 {/* COORDINATOR SECTION */}
 <section
   ref={coordinatorRef}
-  className="relative min-h-screen py-28 px-6"
+  className="relative  py-20 px-6"
 >
 
   <div className="relative z-10 max-w-7xl mx-auto">
