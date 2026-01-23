@@ -1,6 +1,8 @@
 import { useLayoutEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import Particles from "./Particles"
+import "./App.css"
+
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -144,6 +146,7 @@ const scrollToCoordinator = () => {
 
 
   return (
+    
     <div ref={containerRef} className="w-full overflow-x-hidden relative">
 
       {/* FULL PAGE BACKGROUND VIDEO */}
@@ -196,9 +199,18 @@ const scrollToCoordinator = () => {
       {/* HERO SECTION */}
       <section className="relative h-screen flex items-center justify-center text-center pt-16">
         <div className="relative z-10 px-6 -translate-y-10">
-          <h1 ref={kreativRef} className="text-5xl md:text-7xl font-extrabold text-white mb-6">
-            Kreativ'26
-          </h1>
+          <h1
+  ref={kreativRef}
+  className="
+    text-5xl md:text-7xl font-extrabold mb-6
+    font-[\'Orbitron\']
+    glitter-text
+    tracking-widest
+  "
+>
+  Kreativ'26
+</h1>
+
 
           <h2 ref={collegeRef} className="text-white uppercase tracking-widest mb-5">
             Kamaraj College of Engineering and Technology
@@ -237,7 +249,7 @@ const scrollToCoordinator = () => {
 
     {/* Register Now */}
     <a
-      href="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform"
+      href="https://docs.google.com/forms/d/e/1FAIpQLSehA2kNJ1n1i_lVnuWbm5NE7GMSnH5TL8Dqt_6Oh1gqCV0zAg/viewform"
       target="_blank"
       rel="noopener noreferrer"
       className="
@@ -782,10 +794,9 @@ const scrollToCoordinator = () => {
       <p>
         Designed & Developed by{" "}
         <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent font-semibold">
-          TrackA Team
+          Tech-Alpha Team
         </span>
       </p>
-
     </div>
 
   </div>
