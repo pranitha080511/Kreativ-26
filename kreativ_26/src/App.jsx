@@ -199,13 +199,11 @@ const scrollToCoordinator = () => {
       {/* HERO SECTION */}
       <section className="relative h-screen flex items-center justify-center text-center pt-16">
         <div className="relative z-10 px-6 -translate-y-10">
+          <div className="kreativ-title-wrapper">
           <h1 className="kreativ-gold-text">
-  Kreativ'26
-</h1>
-
-
-
-
+          Kreativ'26
+        </h1>
+        </div>
           <h2 ref={collegeRef} className="text-white uppercase tracking-widest mb-5">
             Kamaraj College of Engineering and Technology
           </h2>
