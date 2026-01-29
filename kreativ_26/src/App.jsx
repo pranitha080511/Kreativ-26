@@ -874,7 +874,7 @@ const scrollToCoordinator = () => {
       <p>
         Designed & Developed by{" "}
         <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent font-semibold">
-          Tech-Alpha Team
+          Track-Alpha Team
         </span>
       </p>
     </div>
