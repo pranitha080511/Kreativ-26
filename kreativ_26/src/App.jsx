@@ -1,7 +1,14 @@
 import { useLayoutEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import Particles from "./Particles"
+
+
+
 import "./App.css"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+gsap.registerPlugin(ScrollTrigger)
+
+
 
 
 export default function App() {
@@ -22,6 +29,94 @@ export default function App() {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
+      gsap.fromTo(
+  ".events-content",
+  {
+    x: 150,        // start from right
+    opacity: 0,
+  },
+  {
+    x: 0,
+    opacity: 1,
+    duration: 1.1,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: eventsRef.current,
+      start: "top 80%",
+      end: "bottom 20%",
+      toggleActions: "play reverse play reverse",
+    },
+  }
+)
+gsap.fromTo(
+  ".guidelines-content",
+  {
+    x: -150,       // start from left
+    opacity: 0,
+  },
+  {
+    x: 0,
+    opacity: 1,
+    duration: 1.1,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: guidelinesRef.current,
+      start: "top 80%",
+      end: "bottom 20%",
+      toggleActions: "play reverse play reverse",
+    },
+  }
+)
+gsap.fromTo(
+  ".prizes-content",
+  {
+    y: 150,        // start from bottom
+    scale: 0.95,   // slight zoom out
+    opacity: 0,
+  },
+  {
+    y: 0,
+    scale: 1,
+    opacity: 1,
+    duration: 1.2,
+    ease: "power4.out",
+    scrollTrigger: {
+      trigger: prizesRef.current,
+      start: "top 80%",
+      end: "bottom 20%",
+      toggleActions: "play reverse play reverse",
+    },
+  }
+)
+gsap.fromTo(
+  ".coordinator-content",
+  {
+    opacity: 0,
+    y: 80,
+    rotateX: 8,              // subtle 3D tilt
+    filter: "blur(6px)",     // soft blur
+  },
+  {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    filter: "blur(0px)",
+    duration: 1.2,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: coordinatorRef.current,
+      start: "top 80%",
+      end: "bottom 20%",
+      toggleActions: "play reverse play reverse",
+    },
+  }
+)
+
+
+
+
+
+
       gsap.from(navRef.current, { y: -60, opacity: 0, duration: 1 })
 
       gsap.from(kreativRef.current, {
@@ -119,17 +214,10 @@ gsap.utils.toArray(".hover-lift").forEach((card) => {
   }, [])
 
   const scrollToEvents = () => {
-    setMenuOpen(false)
-    eventsRef.current.scrollIntoView({ behavior: "smooth" })
+  setMenuOpen(false)
+  eventsRef.current.scrollIntoView({ behavior: "smooth" })
+}
 
-    gsap.from(".event-card", {
-      y: 80,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.2,
-      ease: "power3.out",
-    })
-  }
   const scrollToGuidelines = () => {
     setMenuOpen(false)
     guidelinesRef.current.scrollIntoView({ behavior: "smooth" })
@@ -282,7 +370,7 @@ const scrollToCoordinator = () => {
 
             {/* EVENTS SECTION */}
 <section ref={eventsRef} className="relative  py-20 px-6">
-  <div className="relative z-10 max-w-6xl mx-auto">
+  <div className="events-content relative z-10 max-w-6xl mx-auto">
     <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-violet-400 to-pink-500 bg-clip-text text-transparent">
       Events
     </h2>
@@ -383,7 +471,7 @@ const scrollToCoordinator = () => {
 {/* GUIDELINES SECTION */}
 <section ref={guidelinesRef} className="relative min-h-screen py-24 px-6">
 
-  <div className="relative z-10 max-w-7xl mx-auto">
+  <div className="guidelines-content relative z-10 max-w-7xl mx-auto">
 
     <h2 className="text-4xl font-bold text-center mb-20 bg-gradient-to-r from-violet-400 to-pink-500 bg-clip-text text-transparent">
       Guidelines
@@ -513,7 +601,7 @@ const scrollToCoordinator = () => {
 {/* PRIZES SECTION */}
 <section ref={prizesRef} className="relative  py-20 px-6">
 
-  <div className="relative z-10 max-w-7xl mx-auto">
+  <div className="prizes-content relative z-10 max-w-7xl mx-auto">
 
     <h2 className="text-4xl font-bold text-center mb-20 bg-gradient-to-r from-violet-400 to-pink-500 bg-clip-text text-transparent">
       Prizes
@@ -628,7 +716,7 @@ const scrollToCoordinator = () => {
 {/* COORDINATOR SECTION */}
 <section
   ref={coordinatorRef}
-  className="relative  py-20 px-6"
+  className="coordinator-content relative  py-20 px-6"
 >
 
   <div className="relative z-10 max-w-7xl mx-auto">
