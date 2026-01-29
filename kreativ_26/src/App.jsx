@@ -404,7 +404,7 @@ const scrollToCoordinator = () => {
           ["10:30 – 1:00", "Hackathon (Project Evaluation)"],
           ["1:00 – 2:00", "Lunch Break"],
           ["2:00 – 3:00", "Non-Tech Events"],
-          ["3:00 – 4:30", "Prize Distribution"],
+          ["3:00 – 4:30", "Validation"],
         ].map(([time, activity], index) => (
           <div key={index} className="flex flex-col items-center">
 
