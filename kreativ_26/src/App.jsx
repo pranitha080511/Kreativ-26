@@ -1,19 +1,12 @@
 import { useLayoutEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import Particles from "./Particles"
-
-
-
 import "./App.css"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 gsap.registerPlugin(ScrollTrigger)
 
-
-
-
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-
   const containerRef = useRef(null)
   const navRef = useRef(null)
   const kreativRef = useRef(null)
@@ -25,6 +18,72 @@ export default function App() {
   const guidelinesRef = useRef(null)
   const prizesRef = useRef(null)
   const coordinatorRef = useRef(null)
+  const countdownRef = useRef(null)
+
+  const eventDate = new Date("2026-02-13T09:30:00").getTime()
+
+const [timeLeft, setTimeLeft] = useState({
+  days: 0,
+  hours: 0,
+  minutes: 0,
+  seconds: 0,
+})
+
+useLayoutEffect(() => {
+  const timer = setInterval(() => {
+    gsap.fromTo(
+  countdownRef.current,
+  { opacity: 0, y: 80, scale: 0.95 },
+  {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    duration: 1.2,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: countdownRef.current,
+      start: "top 85%",
+    },
+  }
+)
+
+// Hover glow animation
+countdownRef.current.addEventListener("mouseenter", () => {
+  gsap.to(countdownRef.current, {
+    scale: 1.03,
+    boxShadow: "0 0 60px rgba(139,92,246,0.8)",
+    duration: 0.4,
+    ease: "power3.out",
+  })
+})
+
+countdownRef.current.addEventListener("mouseleave", () => {
+  gsap.to(countdownRef.current, {
+    scale: 1,
+    boxShadow: "0 0 0 rgba(0,0,0,0)",
+    duration: 0.4,
+    ease: "power3.out",
+  })
+})
+
+    const now = new Date().getTime()
+    const distance = eventDate - now
+
+    if (distance < 0) {
+      clearInterval(timer)
+      return
+    }
+
+    setTimeLeft({
+      days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((distance / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((distance / (1000 * 60)) % 60),
+      seconds: Math.floor((distance / 1000) % 60),
+    })
+  }, 1000)
+
+  return () => clearInterval(timer)
+}, [])
 
 
   useLayoutEffect(() => {
@@ -111,12 +170,6 @@ gsap.fromTo(
     },
   }
 )
-
-
-
-
-
-
       gsap.from(navRef.current, { y: -60, opacity: 0, duration: 1 })
 
       gsap.from(kreativRef.current, {
@@ -166,8 +219,6 @@ gsap.fromTo(
     })
   })
 })
-
-
       gsap.from(titleRef.current, {
         y: 100,
         opacity: 0,
@@ -205,9 +256,6 @@ gsap.utils.toArray(".hover-lift").forEach((card) => {
     })
   })
 })
-
-
-
     }, containerRef)
 
     return () => ctx.revert()
@@ -231,12 +279,9 @@ const scrollToCoordinator = () => {
   coordinatorRef.current.scrollIntoView({behavior: "smooth",})
 }
 
-
-
   return (
     
     <div ref={containerRef} className="w-full overflow-x-hidden relative">
-
       {/* FULL PAGE BACKGROUND VIDEO */}
       <div className="fixed inset-0 w-full h-full z-[-1]">
         <div style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -363,8 +408,6 @@ const scrollToCoordinator = () => {
     Download Rules Book
   </a>
 </div>
-
-
 </div>
 </section>
 
@@ -434,7 +477,6 @@ const scrollToCoordinator = () => {
           </div>
         </div>
       </div>
-
       {/* NON-TECH EVENT */}
       <div className="group relative overflow-hidden rounded-3xl border border-white/20 p-10 hover:-translate-y-2 transition duration-500">
 
@@ -464,7 +506,6 @@ const scrollToCoordinator = () => {
           </ul>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -600,7 +641,6 @@ const scrollToCoordinator = () => {
 </section>
 {/* PRIZES SECTION */}
 <section ref={prizesRef} className="relative  py-20 px-6">
-
   <div className="prizes-content relative z-10 max-w-7xl mx-auto">
 
     <h2 className="text-4xl font-bold text-center mb-20 bg-gradient-to-r from-violet-400 to-pink-500 bg-clip-text text-transparent">
@@ -713,6 +753,105 @@ const scrollToCoordinator = () => {
 </div>
   </div>
 </section>
+{/* EVENT INFO + COUNTDOWN */}
+<section className="relative py-20 px-6">
+  <div className="relative z-10 max-w-4xl mx-auto">
+
+    <div
+      ref={countdownRef}
+      className="
+        group
+        relative
+        rounded-3xl
+        border border-white/20
+        bg-white/5
+        backdrop-blur-xl
+        p-10
+        text-center
+        transition
+        duration-500
+      "
+    >
+      {/* HOVER GRADIENT */}
+      <div
+        className="
+          absolute inset-0
+          rounded-3xl
+          bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600
+          opacity-0
+          group-hover:opacity-100
+          transition-opacity duration-500
+        "
+      />
+
+      {/* CONTENT */}
+      <div className="relative z-10">
+
+        <h3 className="text-3xl font-extrabold mb-8 bg-gradient-to-r from-violet-400 to-pink-500 bg-clip-text text-transparent">
+          Symposium Countdown
+        </h3>
+
+        {/* DATES */}
+        <div className="flex flex-col md:flex-row justify-center gap-10 mb-12 text-white">
+
+          <div className="hover:scale-110 transition">
+            <p className="text-sm text-gray-300">Meet At</p>
+            <p className="text-xl font-bold text-violet-300">
+              13 / 02 / 2026
+            </p>
+          </div>
+
+          <div className="hover:scale-110 transition">
+            <p className="text-sm text-gray-300">Last Date to Register</p>
+            <p className="text-xl font-bold text-pink-400">
+              11 / 02 / 2026
+            </p>
+          </div>
+
+        </div>
+
+        {/* COUNTDOWN */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+          {[
+            { label: "Days", value: timeLeft.days },
+            { label: "Hours", value: timeLeft.hours },
+            { label: "Minutes", value: timeLeft.minutes },
+            { label: "Seconds", value: timeLeft.seconds },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="
+                group/count
+                rounded-2xl
+                bg-black/40
+                border border-white/10
+                py-6
+                backdrop-blur-md
+                transition
+                duration-300
+                hover:-translate-y-3
+                hover:shadow-[0_0_30px_rgba(236,72,153,0.6)]
+              "
+            >
+              <div className="text-4xl font-extrabold text-white group-hover/count:scale-125 transition">
+                {item.value}
+              </div>
+              <div className="text-sm text-gray-300 mt-1 tracking-widest">
+                {item.label}
+              </div>
+            </div>
+          ))}
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
 {/* COORDINATOR SECTION */}
 <section
   ref={coordinatorRef}
