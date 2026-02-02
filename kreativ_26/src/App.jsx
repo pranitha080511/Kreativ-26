@@ -851,10 +851,6 @@ const scrollToCoordinator = () => {
     </div>
   </div>
 </section>
-
-
-
-
 {/* COORDINATOR SECTION */}
 <section
   ref={coordinatorRef}
