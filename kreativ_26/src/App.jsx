@@ -759,63 +759,65 @@ const scrollToCoordinator = () => {
   </div>
 </section>
 {/* EVENT INFO + COUNTDOWN */}
-<section className="relative py-20 px-6">
-  <div className="relative z-10 max-w-4xl mx-auto">
+<section className="relative py-14 px-6">
+  <div className="relative z-10 max-w-5xl mx-auto">
 
+    {/* OUTER CARD */}
     <div
       ref={countdownRef}
       className="
         group
         relative
+        overflow-hidden
         rounded-3xl
         border border-white/20
-        bg-white/5
-        backdrop-blur-xl
         p-10
         text-center
-        transition
+        transition-all
         duration-500
       "
     >
-      {/* HOVER GRADIENT */}
+      {/* FULL GRADIENT BACKGROUND (HOVER ONLY) */}
       <div
         className="
           absolute inset-0
-          rounded-3xl
-          bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600
+          bg-gradient-to-r
+          from-violet-600
+          via-purple-600
+          to-pink-600
           opacity-0
           group-hover:opacity-100
-          transition-opacity duration-500
+          transition-opacity
+          duration-500
         "
       />
 
       {/* CONTENT */}
       <div className="relative z-10">
 
-        <h3 className="text-3xl font-extrabold mb-8 bg-gradient-to-r from-violet-400 to-pink-500 bg-clip-text text-transparent">
+        {/* TITLE */}
+        <h3 className="text-3xl font-extrabold mb-8 text-white">
           Symposium Countdown
         </h3>
 
         {/* DATES */}
-        <div className="flex flex-col md:flex-row justify-center gap-10 mb-12 text-white">
-
-          <div className="hover:scale-110 transition">
-            <p className="text-sm text-gray-300">Meet At</p>
-            <p className="text-xl font-bold text-violet-300">
+        <div className="flex flex-col md:flex-row justify-center gap-12 mb-10 text-white/90">
+          <div>
+            <p className="text-sm opacity-80">Meet At</p>
+            <p className="text-xl font-semibold">
               13 / 02 / 2026
             </p>
           </div>
 
-          <div className="hover:scale-110 transition">
-            <p className="text-sm text-gray-300">Last Date to Register</p>
-            <p className="text-xl font-bold text-pink-400">
+          <div>
+            <p className="text-sm opacity-80">Last Date to Register</p>
+            <p className="text-xl font-semibold">
               11 / 02 / 2026
             </p>
           </div>
-
         </div>
 
-        {/* COUNTDOWN */}
+        {/* COUNTDOWN BOXES */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 
           {[
@@ -827,34 +829,30 @@ const scrollToCoordinator = () => {
             <div
               key={index}
               className="
-                group/count
-                rounded-2xl
-                bg-black/40
-                border border-white/10
+                rounded-xl
+                bg-black/30
+                px-6
                 py-6
-                backdrop-blur-md
                 transition
                 duration-300
-                hover:-translate-y-3
-                hover:shadow-[0_0_30px_rgba(236,72,153,0.6)]
               "
             >
-              <div className="text-4xl font-extrabold text-white group-hover/count:scale-125 transition">
+              <div className="text-4xl font-extrabold text-white">
                 {item.value}
               </div>
-              <div className="text-sm text-gray-300 mt-1 tracking-widest">
+              <div className="mt-1 text-sm tracking-widest text-white/80">
                 {item.label}
               </div>
             </div>
           ))}
 
         </div>
-
       </div>
     </div>
-
   </div>
 </section>
+
+
 
 
 {/* COORDINATOR SECTION */}
