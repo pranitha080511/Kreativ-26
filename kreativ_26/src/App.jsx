@@ -31,21 +31,26 @@ const [timeLeft, setTimeLeft] = useState({
 
 useLayoutEffect(() => {
   const timer = setInterval(() => {
-    gsap.fromTo(
+   gsap.fromTo(
   countdownRef.current,
-  { opacity: 0, y: 80, scale: 0.95 },
+  {
+    opacity: 0,
+    y: 40,
+    scale: 0.98,
+  },
   {
     opacity: 1,
     y: 0,
     scale: 1,
-    duration: 1.2,
-    ease: "power3.out",
+    duration: 0.6, // 🔥 much faster
+    ease: "power2.out",
     scrollTrigger: {
       trigger: countdownRef.current,
-      start: "top 85%",
+      start: "top 90%",
     },
   }
 )
+
 
 // Hover glow animation
 countdownRef.current.addEventListener("mouseenter", () => {
