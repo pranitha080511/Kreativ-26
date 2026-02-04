@@ -619,7 +619,7 @@ const scrollToCoordinator = () => {
             <li>Confirm your registration by paying the fees.</li>
             <li>Select your domain from the problem statements provided.</li>
             <li>Download the PPT template provided for presentation.</li>
-            <li>During registration, submit your prepared PPT.</li>
+            <li>During Hackathon,You have to present your prepared PPT with project.</li>
             <li>Attend the hackathon on the time mentioned in the brochure.</li>
           </ul>
         </div>
